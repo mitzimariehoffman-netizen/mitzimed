@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mitzi Hoffman — Doctor Visit</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+  .wrap { max-width: 480px; margin: 0 auto; background: #ffffff; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+  .header { padding: 1.5rem 1rem 1rem; border-bottom: 0.5px solid #e0ddd6; background: #fff; }
+  .header h1 { font-size: 20px; font-weight: 600; color: #1a1a1a; letter-spacing: -0.3px; }
+  .header p { font-size: 13px; color: #888; margin-top: 3px; }
+  .tabs { display: flex; overflow-x: auto; border-bottom: 0.5px solid #e0ddd6; background: #fff; scrollbar-width: none; position: sticky; top: 0; z-index: 10; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 1 1 0; padding: 11px 6px; font-size: 11.5px; font-weight: 400; color: #888; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; transition: color 0.15s; text-align: center; }
+  .tab.active { color: #1a1a1a; font-weight: 500; border-bottom-color: #1a1a1a; }
+  .panel { display: none; padding: 1rem; }
+  .panel.active { display: block; }
+  .section-label { font-size: 10.5px; font-weight: 600; color: #aaa; letter-spacing: 0.07em; text-transform: uppercase; margin: 1.25rem 0 0.5rem; }
+  .section-label:first-child { margin-top: 0; }
+  .card { background: #fff; border: 0.5px solid #e0ddd6; border-radius: 12px; overflow: hidden; margin-bottom: 0.75rem; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 13px; border-bottom: 0.5px solid #f0ede8; gap: 12px; }
+  .row:last-child { border-bottom: none; }
+  .row-label { font-size: 13px; color: #666; flex: 0 0 auto; max-width: 52%; line-height: 1.4; }
+  .row-val { font-size: 13px; color: #1a1a1a; text-align: right; word-break: break-word; line-height: 1.4; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+  .badge-ok { background: #e6f4ec; color: #1a7a3c; }
+  .badge-warn { background: #fef3cd; color: #9a6500; }
+  .badge-danger { background: #fde8e8; color: #c0392b; }
+  .note { font-size: 12.5px; color: #666; line-height: 1.65; background: #f8f7f4; border-radius: 10px; padding: 10px 13px; margin-bottom: 0.75rem; }
+  .watch-item { border-left: 2.5px solid #f0a500; padding: 9px 11px; margin-bottom: 8px; background: #fef9ef; border-radius: 0 10px 10px 0; }
+  .watch-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+  .watch-desc { font-size: 12px; color: #666; line-height: 1.55; margin-top: 3px; }
+  .concern-item { border-left: 2.5px solid #ccc; padding: 9px 11px; margin-bottom: 8px; background: #f8f7f4; border-radius: 0 10px 10px 0; }
+  .concern-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+  .concern-desc { font-size: 12px; color: #666; line-height: 1.55; margin-top: 3px; }
+  .lab-suggest-item { border-left: 2.5px solid #4a90d9; padding: 9px 11px; margin-bottom: 8px; background: #f0f6fd; border-radius: 0 10px 10px 0; }
+  .lab-suggest-title { font-size: 13px; font-weight: 600; color: #1a5a9a; }
+  .lab-suggest-desc { font-size: 12px; color: #555; line-height: 1.55; margin-top: 3px; }
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 0.75rem; }
+  .metric { background: #f8f7f4; border-radius: 10px; padding: 11px 13px; }
+  .metric-label { font-size: 11px; color: #999; margin-bottom: 4px; }
+  .metric-val { font-size: 22px; font-weight: 600; color: #1a1a1a; line-height: 1; }
+  .metric-unit { font-size: 12px; color: #999; margin-top: 3px; }
+  .lab-row { display: grid; align-items: center; padding: 9px 13px; border-bottom: 0.5px solid #f0ede8; gap: 4px; }
+  .lab-row:last-child { border-bottom: none; }
+  .lab-row.cols3 { grid-template-columns: 1fr 54px 54px 54px; }
+  .lab-row.cols2 { grid-template-columns: 1fr 54px 54px; }
+  .lab-row.cols1 { grid-template-columns: 1fr 54px; }
+  .lab-name { font-size: 13px; color: #555; line-height: 1.3; }
+  .lab-ref { font-size: 10.5px; color: #bbb; display: block; }
+  .lab-cell { text-align: center; }
+  .lab-num { font-size: 12px; color: #bbb; display: block; text-align: center; }
+  .trend-label { font-size: 10px; color: #bbb; margin-bottom: 3px; padding: 0 13px; display: grid; gap: 4px; }
+  .trend-label.cols3 { grid-template-columns: 1fr 54px 54px 54px; }
+  .trend-label.cols2 { grid-template-columns: 1fr 54px 54px; }
+  .trend-label span { text-align: center; }
+  .bottom-outer { padding: 1rem; border-top: 0.5px solid #e0ddd6; margin-top: 0.25rem; }
+  .bottom-header { font-size: 10.5px; font-weight: 600; color: #aaa; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .footer-note { font-size: 11px; color: #ccc; text-align: center; margin-top: 1.5rem; padding-bottom: 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>Mitzi Hoffman</h1>
+    <p>DOB 05/31/1974 &nbsp;·&nbsp; Age 51 &nbsp;·&nbsp; Visit: March 30, 2026</p>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="ins">Insurance</button>
+    <button class="tab" data-tab="rx">Rx & Supps</button>
+    <button class="tab" data-tab="screen">Screenings</button>
+    <button class="tab" data-tab="history">History</button>
+    <button class="tab" data-tab="labs">Labs</button>
+    <button class="tab" data-tab="fitness">Fitness</button>
+    <button class="tab" data-tab="summary">Summary</button>
+  </div>
+
+  <!-- INSURANCE -->
+  <div class="panel active" id="tab-ins">
+    <div class="section-label">Coverage</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Carrier</span><span class="row-val">UnitedHealthcare Choice Plus</span></div>
+      <div class="row"><span class="row-label">Member</span><span class="row-val">Mitzi M Hoffman</span></div>
+      <div class="row"><span class="row-label">Member ID</span><span class="row-val">929427714</span></div>
+      <div class="row"><span class="row-label">Group number</span><span class="row-val">920883</span></div>
+      <div class="row"><span class="row-label">Payer ID</span><span class="row-val">87726</span></div>
+      <div class="row"><span class="row-label">Employer</span><span class="row-val">DAS Acquisition Company, LLC</span></div>
+    </div>
+    <div class="section-label">Copays</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Office</span><span class="row-val">$15</span></div>
+      <div class="row"><span class="row-label">Urgent care</span><span class="row-val">$25</span></div>
+      <div class="row"><span class="row-label">Specialist</span><span class="row-val">$75</span></div>
+    </div>
+    <div class="section-label">Deductible & out-of-pocket</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Deductible INN Ind/Fam</span><span class="row-val">$5,000 / $10,000</span></div>
+      <div class="row"><span class="row-label">OOPM INN Ind/Fam</span><span class="row-val">$8,000 / $16,000</span></div>
+      <div class="row"><span class="row-label">Deductible OON Ind/Fam</span><span class="row-val">$10,000 / $20,000</span></div>
+      <div class="row"><span class="row-label">OOPM OON Ind/Fam</span><span class="row-val">$14,000 / $28,000</span></div>
+    </div>
+    <div class="section-label">Pharmacy (TrueScripts)</div>
+    <div class="card">
+      <div class="row"><span class="row-label">RxBIN</span><span class="row-val">025862</span></div>
+      <div class="row"><span class="row-label">RxPCN</span><span class="row-val">TSAC</span></div>
+      <div class="row"><span class="row-label">RxGrp</span><span class="row-val">00024869</span></div>
+      <div class="row"><span class="row-label">Member Rx</span><span class="row-val">844-257-1955</span></div>
+    </div>
+    <div class="section-label">Contacts</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Member services</span><span class="row-val">866-633-2446</span></div>
+      <div class="row"><span class="row-label">Web</span><span class="row-val">myuhc.com</span></div>
+      <div class="row"><span class="row-label">Provider line</span><span class="row-val">877-842-3210</span></div>
+    </div>
+  </div>
+
+  <!-- RX & SUPPLEMENTS -->
+  <div class="panel" id="tab-rx">
+    <div class="section-label">Prescriptions</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Tirzepatide</span><span class="row-val">5mg — weight management</span></div>
+      <div class="row"><span class="row-label">Progesterone</span><span class="row-val">100mg</span></div>
+      <div class="row"><span class="row-label">Dotti (estradiol patch)</span><span class="row-val">0.0375mg</span></div>
+      <div class="row"><span class="row-label">Compounded hair serum (topical)</span><span class="row-val">Nightly — Finasteride 0.1%, Ketoconazole 2%, Minoxidil 5%, Latanoprost 0.05%</span></div>
+      <div class="row"><span class="row-label">Tretinoin</span><span class="row-val">0.05% — skin rejuvenation</span></div>
+    </div>
+    <div class="section-label">Supplements</div>
+    <div class="card">
+      <div class="row"><span class="row-label">D3+K2</span><span class="row-val">~5,000 IU gummies + 1,000 IU drops</span></div>
+      <div class="row"><span class="row-label">Fish oil</span><span class="row-val">Sports Research</span></div>
+      <div class="row"><span class="row-label">5-MTHF</span><span class="row-val">Thorne 1mg (methylfolate)</span></div>
+      <div class="row"><span class="row-label">Quercetin</span><span class="row-val">Thorne 250mg 2x/day</span></div>
+      <div class="row"><span class="row-label">NAC</span><span class="row-val">Thorne 500mg, building to 2x/day</span></div>
+      <div class="row"><span class="row-label">Liposomal glutathione</span><span class="row-val">Quicksilver — empty stomach</span></div>
+      <div class="row"><span class="row-label">CoQ10</span><span class="row-val">Sports Research</span></div>
+      <div class="row"><span class="row-label">Urolithin A</span><span class="row-val">Mitochondrial/longevity</span></div>
+      <div class="row"><span class="row-label">NMN</span><span class="row-val">Wonderfeel Youngr 900mg</span></div>
+      <div class="row"><span class="row-label">Creatine</span><span class="row-val">5g/day — Zena gummies</span></div>
+      <div class="row"><span class="row-label">Collagen peptides</span><span class="row-val">Quince Collagen Peptides Plus</span></div>
+      <div class="row"><span class="row-label">BioSil Collagen Generator</span><span class="row-val">Collagen support</span></div>
+      <div class="row"><span class="row-label">Greens powder</span><span class="row-val">Quince Daily Superfood Greens</span></div>
+      <div class="row"><span class="row-label">Pre-workout (non-caffeinated)</span><span class="row-val">Gainful — Mon/Wed only</span></div>
+      <div class="row"><span class="row-label">Nutrafol Women's Balance</span><span class="row-val">Hair health</span></div>
+    </div>
+  </div>
+
+  <!-- SCREENINGS -->
+  <div class="panel" id="tab-screen">
+    <div class="section-label">Vitals</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Height</span><span class="row-val">5'10.5"</span></div>
+      <div class="row"><span class="row-label">Weight</span><span class="row-val">262 lbs</span></div>
+    </div>
+    <div class="section-label">Daily hydration (typical)</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Coffee</span><span class="row-val">2 cups (~16oz)</span></div>
+      <div class="row"><span class="row-label">Water bottle (25oz)</span><span class="row-val">3.5–4 refills (~88–100oz)</span></div>
+      <div class="row"><span class="row-label">Greens drink</span><span class="row-val">~8oz</span></div>
+      <div class="row"><span class="row-label">TRIP adaptogen drink</span><span class="row-val">~8oz</span></div>
+      <div class="row"><span class="row-label">Total estimated</span><span class="row-val">~120–132oz/day</span></div>
+    </div>
+    <div class="section-label">Preventive screenings</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Last menstrual period</span><span class="row-val">February 2026</span></div>
+      <div class="row"><span class="row-label">Cologuard</span><span class="row-val">August 2025</span></div>
+      <div class="row"><span class="row-label">Pap smear</span><span class="row-val">August 2025</span></div>
+      <div class="row"><span class="row-label">Mammogram</span><span class="row-val">August 2025</span></div>
+      <div class="row"><span class="row-label">Vision exam</span><span class="row-val">December 2025</span></div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="panel" id="tab-history">
+    <div class="section-label">Allergies</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Drug allergies</span><span class="row-val">None known</span></div>
+      <div class="row"><span class="row-label">Environmental/food</span><span class="row-val">None known</span></div>
+    </div>
+    <div class="section-label">Medical history</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Chronic conditions</span><span class="row-val">None</span></div>
+      <div class="row"><span class="row-label">Major diagnoses</span><span class="row-val">None</span></div>
+      <div class="row"><span class="row-label">Surgeries</span><span class="row-val">None</span></div>
+      <div class="row"><span class="row-label">Major hospitalizations</span><span class="row-val">None</span></div>
+    </div>
+    <div class="section-label">Lifestyle</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Alcohol</span><span class="row-val">None</span></div>
+      <div class="row"><span class="row-label">Tobacco</span><span class="row-val">None</span></div>
+      <div class="row"><span class="row-label">Recreational drugs</span><span class="row-val">None</span></div>
+    </div>
+    <div class="section-label">Family history</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Mother</span><span class="row-val">Ovarian cancer — in remission ~30 years</span></div>
+      <div class="row"><span class="row-label">Father</span><span class="row-val">Skin cancer, high blood pressure, high cholesterol</span></div>
+    </div>
+  </div>
+
+  <!-- LABS -->
+  <div class="panel" id="tab-labs">
+    <div class="note">Most recent draw: Dec 2024. Prior draws: Jul 2024, Nov 2023, May 2023.</div>
+
+    <div class="section-label">Lipids</div>
+    <div class="trend-label cols3"><span></span><span>May '23</span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="card">
+      <div class="lab-row cols3"><span class="lab-name">Total cholesterol <span class="lab-ref">&lt;200</span></span><span class="lab-cell"><span class="lab-num">189</span></span><span class="lab-cell"><span class="lab-num">249</span></span><span class="lab-cell"><span class="badge badge-warn">262</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">LDL <span class="lab-ref">&lt;100</span></span><span class="lab-cell"><span class="lab-num">116</span></span><span class="lab-cell"><span class="lab-num">154</span></span><span class="lab-cell"><span class="badge badge-warn">145</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">HDL <span class="lab-ref">&gt;50</span></span><span class="lab-cell"><span class="lab-num">63</span></span><span class="lab-cell"><span class="lab-num">79</span></span><span class="lab-cell"><span class="badge badge-ok">95</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Triglycerides <span class="lab-ref">&lt;150</span></span><span class="lab-cell"><span class="lab-num">56</span></span><span class="lab-cell"><span class="lab-num">61</span></span><span class="lab-cell"><span class="badge badge-ok">103</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Chol/HDL ratio <span class="lab-ref">&lt;5.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">3.2</span></span><span class="lab-cell"><span class="badge badge-ok">2.8</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Non-HDL <span class="lab-ref">&lt;130</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">170</span></span><span class="lab-cell"><span class="badge badge-warn">167</span></span></div>
+    </div>
+    <div class="note">Total cholesterol and LDL have been elevated across multiple draws. My HDL is exceptionally strong and improving. Ratio and triglycerides are excellent.</div>
+
+    <div class="section-label">Blood sugar & metabolic</div>
+    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Jul '24</span><span>Dec '24</span></div>
+    <div class="card">
+      <div class="lab-row cols3"><span class="lab-name">Glucose <span class="lab-ref">65–99</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">94</span></span><span class="lab-cell"><span class="badge badge-ok">77</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">HbA1c <span class="lab-ref">&lt;5.7%</span></span><span class="lab-cell"><span class="lab-num">5.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">5.1</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Insulin <span class="lab-ref">&lt;18.4</span></span><span class="lab-cell"><span class="lab-num">8.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">5.8</span></span></div>
+    </div>
+    <div class="note">My blood sugar picture looks good across the board. A1c and insulin are both trending in the right direction.</div>
+
+    <div class="section-label">Thyroid</div>
+    <div class="trend-label cols2"><span></span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="card">
+      <div class="lab-row cols2"><span class="lab-name">TSH <span class="lab-ref">0.40–4.50</span></span><span class="lab-cell"><span class="lab-num">1.87</span></span><span class="lab-cell"><span class="badge badge-ok">1.61</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">Free T3 <span class="lab-ref">2.3–4.2</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">3.2</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">Free T4 <span class="lab-ref">0.8–1.8</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">1.2</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">TPO antibodies <span class="lab-ref">&lt;9</span></span><span class="lab-cell"><span class="lab-num">&lt;1</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">Thyroglobulin <span class="lab-ref">2.8–40.9</span></span><span class="lab-cell"><span class="badge badge-warn">46.3</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
+    </div>
+    <div class="note">Thyroid numbers look stable. Thyroglobulin was slightly outside range in Nov 2023 and wasn't repeated in Dec 2024 — happy to discuss whether that needs any attention.</div>
+
+    <div class="section-label">Kidney & liver</div>
+    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Jul '24</span><span>Dec '24</span></div>
+    <div class="card">
+      <div class="lab-row cols3"><span class="lab-name">Creatinine <span class="lab-ref">0.50–1.03</span></span><span class="lab-cell"><span class="lab-num">0.76</span></span><span class="lab-cell"><span class="lab-num">0.73</span></span><span class="lab-cell"><span class="badge badge-ok">0.77</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">eGFR <span class="lab-ref">&gt;60</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">100</span></span><span class="lab-cell"><span class="badge badge-ok">94</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">AST <span class="lab-ref">10–35</span></span><span class="lab-cell"><span class="lab-num">14</span></span><span class="lab-cell"><span class="lab-num">31</span></span><span class="lab-cell"><span class="badge badge-ok">22</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">ALT <span class="lab-ref">6–29</span></span><span class="lab-cell"><span class="lab-num">12</span></span><span class="lab-cell"><span class="badge badge-warn">30</span></span><span class="lab-cell"><span class="badge badge-ok">22</span></span></div>
+    </div>
+    <div class="note">Kidney numbers look great. ALT was slightly elevated in July 2024 but came back down by December — likely nothing, but noting it for context.</div>
+
+    <div class="section-label">Vitamin D</div>
+    <div class="trend-label cols2"><span></span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="card">
+      <div class="lab-row cols2"><span class="lab-name">Vit D 25-OH <span class="lab-ref">30–100</span></span><span class="lab-cell"><span class="badge badge-danger">10</span></span><span class="lab-cell"><span class="badge badge-ok">66</span></span></div>
+    </div>
+    <div class="note">I was severely deficient in Nov 2023 and have since recovered to a good range with D3 supplementation.</div>
+
+    <div class="section-label">CBC</div>
+    <div class="trend-label cols2"><span></span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="card">
+      <div class="lab-row cols2"><span class="lab-name">WBC <span class="lab-ref">3.8–10.8</span></span><span class="lab-cell"><span class="lab-num">5.4</span></span><span class="lab-cell"><span class="badge badge-ok">6.6</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">Hemoglobin <span class="lab-ref">11.7–15.5</span></span><span class="lab-cell"><span class="lab-num">14.0</span></span><span class="lab-cell"><span class="badge badge-warn">16.1</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">Hematocrit <span class="lab-ref">35–45%</span></span><span class="lab-cell"><span class="lab-num">42.6</span></span><span class="lab-cell"><span class="badge badge-warn">48.6</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">MCV <span class="lab-ref">80–100</span></span><span class="lab-cell"><span class="lab-num">89.3</span></span><span class="lab-cell"><span class="badge badge-warn">101.5</span></span></div>
+      <div class="lab-row cols2"><span class="lab-name">Platelets <span class="lab-ref">140–400</span></span><span class="lab-cell"><span class="lab-num">343</span></span><span class="lab-cell"><span class="badge badge-ok">318</span></span></div>
+    </div>
+    <div class="note">A few CBC values came back elevated in December 2024 — Hemoglobin, Hematocrit, and MCV. I started methylfolate (5-MTHF) since then.</div>
+
+    <div class="section-label">B12, folate & iron (Dec 2024)</div>
+    <div class="card">
+      <div class="lab-row cols1"><span class="lab-name">B12 <span class="lab-ref">200–1100</span></span><span class="lab-cell"><span class="badge badge-ok">461</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">Folate <span class="lab-ref">&gt;5.4 normal</span></span><span class="lab-cell"><span class="badge badge-warn">4.5</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">Iron <span class="lab-ref">45–160</span></span><span class="lab-cell"><span class="badge badge-ok">132</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">Ferritin <span class="lab-ref">16–232</span></span><span class="lab-cell"><span class="badge badge-ok">71</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">% saturation <span class="lab-ref">16–45%</span></span><span class="lab-cell"><span class="badge badge-ok">32</span></span></div>
+    </div>
+    <div class="note">Folate was borderline in December 2024. I started 5-MTHF (methylfolate) since then — curious whether that should be rechecked at some point.</div>
+  </div>
+
+  <!-- FITNESS -->
+  <div class="panel" id="tab-fitness">
+    <div class="section-label">Resting heart rate (12-month trend)</div>
+    <div class="metric-grid">
+      <div class="metric"><div class="metric-label">May–Jul 2025</div><div class="metric-val">74–76</div><div class="metric-unit">bpm avg</div></div>
+      <div class="metric"><div class="metric-label">Jan–Mar 2026</div><div class="metric-val">68–70</div><div class="metric-unit">bpm avg</div></div>
+    </div>
+    <div class="note">Based on 36,000+ readings over 12 months. My resting HR has trended down 6–8 bpm, indicating improving cardiovascular fitness.</div>
+
+    <div class="section-label">Weekly training schedule</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Monday</span><span class="row-val">Distance run — 32–39 min</span></div>
+      <div class="row"><span class="row-label">Tuesday</span><span class="row-val">Stair machine + strength</span></div>
+      <div class="row"><span class="row-label">Wednesday</span><span class="row-val">Sprint run — 22–32 min</span></div>
+      <div class="row"><span class="row-label">Thursday</span><span class="row-val">Stair machine + strength</span></div>
+      <div class="row"><span class="row-label">Saturday</span><span class="row-val">Pilates (some weeks)</span></div>
+    </div>
+
+    <div class="section-label">Heart rate by activity (past 12 months)</div>
+    <div class="card">
+      <div class="row"><span class="row-label">Running — avg max HR</span><span class="row-val">165 bpm</span></div>
+      <div class="row"><span class="row-label">Running — max recorded</span><span class="row-val">175 bpm</span></div>
+      <div class="row"><span class="row-label">Stair machine — mean/peak</span><span class="row-val">111 / 118 bpm</span></div>
+      <div class="row"><span class="row-label">Strength — mean/peak</span><span class="row-val">122 / 139 bpm</span></div>
+    </div>
+    <div class="note">My recorded max HR of 175 bpm exceeds the age-formula estimate of 169 bpm (220−51). My actual max HR appears higher than the standard formula predicts — relevant if training zones are being calculated for me.</div>
+
+    <div class="section-label">Sleep</div>
+    <div class="metric-grid">
+      <div class="metric"><div class="metric-label">Avg duration</div><div class="metric-val">7.6</div><div class="metric-unit">hours/night</div></div>
+      <div class="metric"><div class="metric-label">Quality dip</div><div class="metric-val">45–57</div><div class="metric-unit">Jun–Sep '25</div></div>
+    </div>
+    <div class="note">I fall asleep easily and wake rested. My sleep quality score dipped June–September 2025, which I attribute to personal stressors during that period rather than a physical issue — it has partially recovered since.</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="panel" id="tab-summary">
+    <div class="section-label">Strengths</div>
+    <div class="note">My metabolic health is excellent — blood sugar, insulin, kidney function, and thyroid are all stable and well-managed. My HDL is outstanding and improving. My Vitamin D has fully recovered from severe deficiency. My cardiovascular fitness is measurably improving (resting HR down 6–8 bpm over 10 months). I maintain a consistent 5-day training schedule and my sleep duration is solid at 7.5–7.7 hours. My daily hydration averages 120–132oz.</div>
+
+    <div class="section-label">Watch items for this visit</div>
+    <div class="watch-item">
+      <div class="watch-title">LDL / Total cholesterol</div>
+      <div class="watch-desc">Has been elevated across multiple draws. My HDL is strong — curious what you think given the full picture.</div>
+    </div>
+    <div class="watch-item">
+      <div class="watch-title">CBC flags (Dec 2024)</div>
+      <div class="watch-desc">Hemoglobin, Hematocrit, and MCV came back elevated. Folate was borderline — I started 5-MTHF since then. Happy to discuss.</div>
+    </div>
+    <div class="watch-item">
+      <div class="watch-title">Thyroglobulin</div>
+      <div class="watch-desc">Slightly outside range in Nov 2023, not repeated since. Happy to discuss whether it needs any attention.</div>
+    </div>
+    <div class="watch-item">
+      <div class="watch-title">Tirzepatide 5mg</div>
+      <div class="watch-desc">I want to discuss my progress, titration plan, and any side effects.</div>
+    </div>
+    <div class="watch-item">
+      <div class="watch-title">Topical estriol + HRT interaction</div>
+      <div class="watch-desc">I want to ask about whether topical estriol would interact with my current progesterone and estradiol patch regimen.</div>
+    </div>
+    <div class="watch-item">
+      <div class="watch-title">Sleep quality dip (Jun–Sep 2025)</div>
+      <div class="watch-desc">Scores 45–57/100 during that period. I attribute this to personal stressors — flagging in case it's relevant.</div>
+    </div>
+    <p class="footer-note">For patient reference only · Not medical advice</p>
+  </div>
+
+  <!-- BELOW TABS: SUGGESTED LABS + CONCERNS -->
+  <div class="bottom-outer">
+    <div class="bottom-header">Suggested labs</div>
+    <div class="lab-suggest-item">
+      <div class="lab-suggest-title">Repeat CBC + folate</div>
+      <div class="lab-suggest-desc">A few CBC values were elevated in Dec 2024 and folate was borderline. I started 5-MTHF since — would it make sense to recheck?</div>
+    </div>
+    <div class="lab-suggest-item">
+      <div class="lab-suggest-title">Thyroglobulin</div>
+      <div class="lab-suggest-desc">Slightly outside range in Nov 2023, not repeated since. Worth rechecking?</div>
+    </div>
+    <div class="lab-suggest-item">
+      <div class="lab-suggest-title">ApoB and/or Lp(a)</div>
+      <div class="lab-suggest-desc">Given the elevated LDL history — would these add useful context to the cholesterol picture?</div>
+    </div>
+    <div class="lab-suggest-item">
+      <div class="lab-suggest-title">Hormone panel — estrogen, progesterone, testosterone</div>
+      <div class="lab-suggest-desc">Not in any prior labs. Would it be useful to have a baseline given my HRT?</div>
+    </div>
+    <div class="lab-suggest-item">
+      <div class="lab-suggest-title">DHEA-S</div>
+      <div class="lab-suggest-desc">Not previously tested — is this worth adding at this stage?</div>
+    </div>
+    <div class="lab-suggest-item">
+      <div class="lab-suggest-title">Vitamin D (annual)</div>
+      <div class="lab-suggest-desc">Confirmed good at 66 in Dec 2024. Is annual monitoring sufficient?</div>
+    </div>
+
+    <div class="bottom-header" style="margin-top:1.25rem;">Areas of concern</div>
+    <div class="concern-item">
+      <div class="concern-title">Forehead bump — possible Dilated Pore of Winer</div>
+      <div class="concern-desc">Present about a year. Would like evaluation and a dermatology referral.</div>
+    </div>
+    <div class="concern-item">
+      <div class="concern-title">Knees</div>
+      <div class="concern-desc">Ongoing concern — active training schedule with significant stair machine and running volume.</div>
+    </div>
+
+    <p class="footer-note">For patient reference only · Not medical advice</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
