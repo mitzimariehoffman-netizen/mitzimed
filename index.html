@@ -46,6 +46,7 @@
   .metric-unit { font-size: 12px; color: #999; margin-top: 3px; }
   .lab-row { display: grid; align-items: center; padding: 9px 13px; border-bottom: 0.5px solid #f0ede8; gap: 4px; }
   .lab-row:last-child { border-bottom: none; }
+  .lab-row.cols4 { grid-template-columns: 1fr 44px 44px 44px 44px; }
   .lab-row.cols3 { grid-template-columns: 1fr 54px 54px 54px; }
   .lab-row.cols2 { grid-template-columns: 1fr 54px 54px; }
   .lab-row.cols1 { grid-template-columns: 1fr 54px; }
@@ -54,6 +55,7 @@
   .lab-cell { text-align: center; }
   .lab-num { font-size: 12px; color: #bbb; display: block; text-align: center; }
   .trend-label { font-size: 10px; color: #bbb; margin-bottom: 3px; padding: 0 13px; display: grid; gap: 4px; }
+  .trend-label.cols4 { grid-template-columns: 1fr 44px 44px 44px 44px; }
   .trend-label.cols3 { grid-template-columns: 1fr 54px 54px 54px; }
   .trend-label.cols2 { grid-template-columns: 1fr 54px 54px; }
   .trend-label span { text-align: center; }
@@ -130,16 +132,16 @@
     <div class="section-label">Supplements</div>
     <div class="card">
       <div class="row"><span class="row-label">D3+K2</span><span class="row-val">~5,000 IU gummies + 1,000 IU drops</span></div>
-      <div class="row"><span class="row-label">Fish oil</span><span class="row-val">Sports Research</span></div>
-      <div class="row"><span class="row-label">5-MTHF</span><span class="row-val">Thorne 1mg (methylfolate)</span></div>
-      <div class="row"><span class="row-label">Quercetin</span><span class="row-val">Thorne 250mg 2x/day</span></div>
-      <div class="row"><span class="row-label">NAC</span><span class="row-val">Thorne 500mg, building to 2x/day</span></div>
-      <div class="row"><span class="row-label">Liposomal glutathione</span><span class="row-val">Quicksilver — empty stomach</span></div>
-      <div class="row"><span class="row-label">CoQ10</span><span class="row-val">Sports Research</span></div>
-      <div class="row"><span class="row-label">Urolithin A</span><span class="row-val">Mitochondrial/longevity</span></div>
-      <div class="row"><span class="row-label">NMN</span><span class="row-val">Wonderfeel Youngr 900mg</span></div>
+      <div class="row"><span class="row-label">Fish oil</span><span class="row-val">1,250mg — Sports Research</span></div>
+      <div class="row"><span class="row-label">5-MTHF</span><span class="row-val">1mg — Thorne (methylfolate)</span></div>
+      <div class="row"><span class="row-label">Quercetin</span><span class="row-val">250mg 2x/day — Thorne</span></div>
+      <div class="row"><span class="row-label">NAC</span><span class="row-val">500mg, building to 2x/day — Thorne</span></div>
+      <div class="row"><span class="row-label">Liposomal glutathione</span><span class="row-val">100mg — Quicksilver, empty stomach</span></div>
+      <div class="row"><span class="row-label">CoQ10</span><span class="row-val">100mg — Sports Research</span></div>
+      <div class="row"><span class="row-label">Urolithin A</span><span class="row-val">500mg — Timeline Mitopure</span></div>
+      <div class="row"><span class="row-label">NMN</span><span class="row-val">900mg — Wonderfeel Youngr</span></div>
       <div class="row"><span class="row-label">Creatine</span><span class="row-val">5g/day — Zena gummies</span></div>
-      <div class="row"><span class="row-label">Collagen peptides</span><span class="row-val">Quince Collagen Peptides Plus</span></div>
+      <div class="row"><span class="row-label">Collagen peptides</span><span class="row-val">Quince — 20g collagen, 120mg hyaluronic acid, 90mg vitamin C</span></div>
       <div class="row"><span class="row-label">BioSil Collagen Generator</span><span class="row-val">Collagen support</span></div>
       <div class="row"><span class="row-label">Greens powder</span><span class="row-val">Quince Daily Superfood Greens</span></div>
       <div class="row"><span class="row-label">Pre-workout (non-caffeinated)</span><span class="row-val">Gainful — Mon/Wed only</span></div>
@@ -201,67 +203,68 @@
 
   <!-- LABS -->
   <div class="panel" id="tab-labs">
-    <div class="note">Most recent draw: Dec 2024. Prior draws: Jul 2024, Nov 2023, May 2023.</div>
+    <div class="note">Most recent draw: Apr 6, 2026. Prior draws: Dec 2024, Jul 2024, Nov 2023, May 2023.</div>
 
     <div class="section-label">Lipids</div>
-    <div class="trend-label cols3"><span></span><span>May '23</span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="trend-label cols4"><span></span><span>May '23</span><span>Nov '23</span><span>Dec '24</span><span>Apr '26</span></div>
     <div class="card">
-      <div class="lab-row cols3"><span class="lab-name">Total cholesterol <span class="lab-ref">&lt;200</span></span><span class="lab-cell"><span class="lab-num">189</span></span><span class="lab-cell"><span class="lab-num">249</span></span><span class="lab-cell"><span class="badge badge-warn">262</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">LDL <span class="lab-ref">&lt;100</span></span><span class="lab-cell"><span class="lab-num">116</span></span><span class="lab-cell"><span class="lab-num">154</span></span><span class="lab-cell"><span class="badge badge-warn">145</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">HDL <span class="lab-ref">&gt;50</span></span><span class="lab-cell"><span class="lab-num">63</span></span><span class="lab-cell"><span class="lab-num">79</span></span><span class="lab-cell"><span class="badge badge-ok">95</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">Triglycerides <span class="lab-ref">&lt;150</span></span><span class="lab-cell"><span class="lab-num">56</span></span><span class="lab-cell"><span class="lab-num">61</span></span><span class="lab-cell"><span class="badge badge-ok">103</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">Chol/HDL ratio <span class="lab-ref">&lt;5.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">3.2</span></span><span class="lab-cell"><span class="badge badge-ok">2.8</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">Non-HDL <span class="lab-ref">&lt;130</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">170</span></span><span class="lab-cell"><span class="badge badge-warn">167</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Total cholesterol <span class="lab-ref">&lt;200</span></span><span class="lab-cell"><span class="lab-num">189</span></span><span class="lab-cell"><span class="lab-num">249</span></span><span class="lab-cell"><span class="lab-num">262</span></span><span class="lab-cell"><span class="badge badge-warn">213</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">LDL <span class="lab-ref">&lt;100</span></span><span class="lab-cell"><span class="lab-num">116</span></span><span class="lab-cell"><span class="lab-num">154</span></span><span class="lab-cell"><span class="lab-num">145</span></span><span class="lab-cell"><span class="badge badge-warn">137</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">HDL <span class="lab-ref">&gt;50</span></span><span class="lab-cell"><span class="lab-num">63</span></span><span class="lab-cell"><span class="lab-num">79</span></span><span class="lab-cell"><span class="lab-num">95</span></span><span class="lab-cell"><span class="badge badge-ok">61</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Triglycerides <span class="lab-ref">&lt;150</span></span><span class="lab-cell"><span class="lab-num">56</span></span><span class="lab-cell"><span class="lab-num">61</span></span><span class="lab-cell"><span class="lab-num">103</span></span><span class="lab-cell"><span class="badge badge-ok">86</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Chol/HDL ratio <span class="lab-ref">&lt;5.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">3.2</span></span><span class="lab-cell"><span class="lab-num">2.8</span></span><span class="lab-cell"><span class="badge badge-ok">3.0</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Non-HDL <span class="lab-ref">&lt;130</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">170</span></span><span class="lab-cell"><span class="lab-num">167</span></span><span class="lab-cell"><span class="badge badge-warn">152</span></span></div>
     </div>
-    <div class="note">Total cholesterol and LDL have been elevated across multiple draws. My HDL is exceptionally strong and improving. Ratio and triglycerides are excellent.</div>
+    <div class="note">Total cholesterol and LDL are trending down — meaningful improvement from Dec 2024. HDL dropped from 95 to 61; the Dec '24 draw was non-fasting which can inflate HDL, so 61 likely reflects my actual baseline. Ratio and triglycerides remain excellent.</div>
 
     <div class="section-label">Blood sugar & metabolic</div>
-    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Jul '24</span><span>Dec '24</span></div>
+    <div class="trend-label cols4"><span></span><span>Nov '23</span><span>Jul '24</span><span>Dec '24</span><span>Apr '26</span></div>
     <div class="card">
-      <div class="lab-row cols3"><span class="lab-name">Glucose <span class="lab-ref">65–99</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">94</span></span><span class="lab-cell"><span class="badge badge-ok">77</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">HbA1c <span class="lab-ref">&lt;5.7%</span></span><span class="lab-cell"><span class="lab-num">5.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">5.1</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">Insulin <span class="lab-ref">&lt;18.4</span></span><span class="lab-cell"><span class="lab-num">8.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">5.8</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Glucose <span class="lab-ref">65–99</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">94</span></span><span class="lab-cell"><span class="lab-num">77</span></span><span class="lab-cell"><span class="badge badge-ok">76</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">HbA1c <span class="lab-ref">&lt;5.7%</span></span><span class="lab-cell"><span class="lab-num">5.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">5.1</span></span><span class="lab-cell"><span class="badge badge-ok">5.2</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Insulin <span class="lab-ref">&lt;18.4</span></span><span class="lab-cell"><span class="lab-num">8.0</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">5.8</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
     </div>
-    <div class="note">My blood sugar picture looks good across the board. A1c and insulin are both trending in the right direction.</div>
+    <div class="note">Blood sugar remains excellent. A1c steady at 5.2, glucose 76 — both well within range.</div>
 
     <div class="section-label">Thyroid</div>
-    <div class="trend-label cols2"><span></span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Dec '24</span><span>Apr '26</span></div>
     <div class="card">
-      <div class="lab-row cols2"><span class="lab-name">TSH <span class="lab-ref">0.40–4.50</span></span><span class="lab-cell"><span class="lab-num">1.87</span></span><span class="lab-cell"><span class="badge badge-ok">1.61</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">Free T3 <span class="lab-ref">2.3–4.2</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">3.2</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">Free T4 <span class="lab-ref">0.8–1.8</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">1.2</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">TPO antibodies <span class="lab-ref">&lt;9</span></span><span class="lab-cell"><span class="lab-num">&lt;1</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">Thyroglobulin <span class="lab-ref">2.8–40.9</span></span><span class="lab-cell"><span class="badge badge-warn">46.3</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">TSH <span class="lab-ref">0.30–4.20</span></span><span class="lab-cell"><span class="lab-num">1.87</span></span><span class="lab-cell"><span class="lab-num">1.61</span></span><span class="lab-cell"><span class="badge badge-ok">2.46</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Free T3 <span class="lab-ref">2.3–4.2</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">3.2</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Free T4 <span class="lab-ref">0.8–1.8</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="badge badge-ok">1.2</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">TPO antibodies <span class="lab-ref">&lt;9</span></span><span class="lab-cell"><span class="lab-num">&lt;1</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Thyroglobulin <span class="lab-ref">2.8–40.9</span></span><span class="lab-cell"><span class="badge badge-warn">46.3</span></span><span class="lab-cell"><span class="lab-num">—</span></span><span class="lab-cell"><span class="lab-num">—</span></span></div>
     </div>
-    <div class="note">Thyroid numbers look stable. Thyroglobulin was slightly outside range in Nov 2023 and wasn't repeated in Dec 2024 — happy to discuss whether that needs any attention.</div>
+    <div class="note">TSH stable at 2.46. Thyroglobulin was slightly outside range in Nov 2023 and has not been repeated since.</div>
 
     <div class="section-label">Kidney & liver</div>
-    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Jul '24</span><span>Dec '24</span></div>
+    <div class="trend-label cols4"><span></span><span>Nov '23</span><span>Jul '24</span><span>Dec '24</span><span>Apr '26</span></div>
     <div class="card">
-      <div class="lab-row cols3"><span class="lab-name">Creatinine <span class="lab-ref">0.50–1.03</span></span><span class="lab-cell"><span class="lab-num">0.76</span></span><span class="lab-cell"><span class="lab-num">0.73</span></span><span class="lab-cell"><span class="badge badge-ok">0.77</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">eGFR <span class="lab-ref">&gt;60</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">100</span></span><span class="lab-cell"><span class="badge badge-ok">94</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">AST <span class="lab-ref">10–35</span></span><span class="lab-cell"><span class="lab-num">14</span></span><span class="lab-cell"><span class="lab-num">31</span></span><span class="lab-cell"><span class="badge badge-ok">22</span></span></div>
-      <div class="lab-row cols3"><span class="lab-name">ALT <span class="lab-ref">6–29</span></span><span class="lab-cell"><span class="lab-num">12</span></span><span class="lab-cell"><span class="badge badge-warn">30</span></span><span class="lab-cell"><span class="badge badge-ok">22</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Creatinine <span class="lab-ref">0.60–1.10</span></span><span class="lab-cell"><span class="lab-num">0.76</span></span><span class="lab-cell"><span class="lab-num">0.73</span></span><span class="lab-cell"><span class="lab-num">0.77</span></span><span class="lab-cell"><span class="badge badge-ok">0.71</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">eGFR <span class="lab-ref">&gt;60</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">100</span></span><span class="lab-cell"><span class="lab-num">94</span></span><span class="lab-cell"><span class="badge badge-ok">&gt;90</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">AST <span class="lab-ref">10–45</span></span><span class="lab-cell"><span class="lab-num">14</span></span><span class="lab-cell"><span class="lab-num">31</span></span><span class="lab-cell"><span class="lab-num">22</span></span><span class="lab-cell"><span class="badge badge-ok">22</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">ALT <span class="lab-ref">7–45</span></span><span class="lab-cell"><span class="lab-num">12</span></span><span class="lab-cell"><span class="lab-num">30</span></span><span class="lab-cell"><span class="lab-num">22</span></span><span class="lab-cell"><span class="badge badge-ok">22</span></span></div>
+      <div class="lab-row cols4"><span class="lab-name">Glucose <span class="lab-ref">70–199</span></span><span class="lab-cell"><span class="lab-num">96</span></span><span class="lab-cell"><span class="lab-num">94</span></span><span class="lab-cell"><span class="lab-num">77</span></span><span class="lab-cell"><span class="badge badge-ok">76</span></span></div>
     </div>
-    <div class="note">Kidney numbers look great. ALT was slightly elevated in July 2024 but came back down by December — likely nothing, but noting it for context.</div>
+    <div class="note">Kidney and liver function all excellent. eGFR improved to &gt;90 (normal range). ALT fully resolved.</div>
 
     <div class="section-label">Vitamin D</div>
-    <div class="trend-label cols2"><span></span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Dec '24</span><span>Apr '26</span></div>
     <div class="card">
-      <div class="lab-row cols2"><span class="lab-name">Vit D 25-OH <span class="lab-ref">30–100</span></span><span class="lab-cell"><span class="badge badge-danger">10</span></span><span class="lab-cell"><span class="badge badge-ok">66</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Vit D 25-OH <span class="lab-ref">30–80</span></span><span class="lab-cell"><span class="badge badge-danger">10</span></span><span class="lab-cell"><span class="lab-num">66</span></span><span class="lab-cell"><span class="badge badge-ok">41</span></span></div>
     </div>
-    <div class="note">I was severely deficient in Nov 2023 and have since recovered to a good range with D3 supplementation.</div>
+    <div class="note">Vitamin D dropped from 66 to 41 — still in range but worth monitoring. Continuing D3 supplementation.</div>
 
     <div class="section-label">CBC</div>
-    <div class="trend-label cols2"><span></span><span>Nov '23</span><span>Dec '24</span></div>
+    <div class="trend-label cols3"><span></span><span>Nov '23</span><span>Dec '24</span><span>Apr '26</span></div>
     <div class="card">
-      <div class="lab-row cols2"><span class="lab-name">WBC <span class="lab-ref">3.8–10.8</span></span><span class="lab-cell"><span class="lab-num">5.4</span></span><span class="lab-cell"><span class="badge badge-ok">6.6</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">Hemoglobin <span class="lab-ref">11.7–15.5</span></span><span class="lab-cell"><span class="lab-num">14.0</span></span><span class="lab-cell"><span class="badge badge-warn">16.1</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">Hematocrit <span class="lab-ref">35–45%</span></span><span class="lab-cell"><span class="lab-num">42.6</span></span><span class="lab-cell"><span class="badge badge-warn">48.6</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">MCV <span class="lab-ref">80–100</span></span><span class="lab-cell"><span class="lab-num">89.3</span></span><span class="lab-cell"><span class="badge badge-warn">101.5</span></span></div>
-      <div class="lab-row cols2"><span class="lab-name">Platelets <span class="lab-ref">140–400</span></span><span class="lab-cell"><span class="lab-num">343</span></span><span class="lab-cell"><span class="badge badge-ok">318</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">WBC <span class="lab-ref">3.8–9.9</span></span><span class="lab-cell"><span class="lab-num">5.4</span></span><span class="lab-cell"><span class="lab-num">6.6</span></span><span class="lab-cell"><span class="badge badge-ok">7.81</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Hemoglobin <span class="lab-ref">11.9–15.5</span></span><span class="lab-cell"><span class="lab-num">14.0</span></span><span class="lab-cell"><span class="badge badge-warn">16.1</span></span><span class="lab-cell"><span class="badge badge-ok">13.8</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Hematocrit <span class="lab-ref">35.6–45.5%</span></span><span class="lab-cell"><span class="lab-num">42.6</span></span><span class="lab-cell"><span class="badge badge-warn">48.6</span></span><span class="lab-cell"><span class="badge badge-ok">42</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">MCV <span class="lab-ref">81.3–96.4</span></span><span class="lab-cell"><span class="lab-num">89.3</span></span><span class="lab-cell"><span class="badge badge-warn">101.5</span></span><span class="lab-cell"><span class="badge badge-ok">90.3</span></span></div>
+      <div class="lab-row cols3"><span class="lab-name">Platelets <span class="lab-ref">150–400</span></span><span class="lab-cell"><span class="lab-num">343</span></span><span class="lab-cell"><span class="lab-num">318</span></span><span class="lab-cell"><span class="badge badge-ok">295</span></span></div>
     </div>
-    <div class="note">A few CBC values came back elevated in December 2024 — Hemoglobin, Hematocrit, and MCV. I started methylfolate (5-MTHF) since then.</div>
+    <div class="note">CBC fully normalized in Apr 2026 — Hemoglobin, Hematocrit, and MCV all back within range. The Dec 2024 flags resolved, likely aided by starting 5-MTHF.</div>
 
     <div class="section-label">B12, folate & iron (Dec 2024)</div>
     <div class="card">
@@ -271,7 +274,22 @@
       <div class="lab-row cols1"><span class="lab-name">Ferritin <span class="lab-ref">16–232</span></span><span class="lab-cell"><span class="badge badge-ok">71</span></span></div>
       <div class="lab-row cols1"><span class="lab-name">% saturation <span class="lab-ref">16–45%</span></span><span class="lab-cell"><span class="badge badge-ok">32</span></span></div>
     </div>
-    <div class="note">Folate was borderline in December 2024. I started 5-MTHF (methylfolate) since then — curious whether that should be rechecked at some point.</div>
+    <div class="note">Last drawn Dec 2024. Folate was borderline — started 5-MTHF since. Not repeated in Apr 2026 draw.</div>
+
+    <div class="section-label">Cardiovascular risk (Apr 2026)</div>
+    <div class="card">
+      <div class="lab-row cols1"><span class="lab-name">Lipoprotein A — Lp(a) <span class="lab-ref">&lt;75 nmol/L</span></span><span class="lab-cell"><span class="badge badge-warn">103</span></span></div>
+    </div>
+    <div class="note">Lp(a) is elevated at 103 nmol/L (normal &lt;75). Values ≥125 are considered a major cardiovascular risk factor. At 103 this warrants discussion — Lp(a) is largely genetic and doesn't respond to diet or exercise. Combined with my LDL history this gives a more complete cardiovascular picture.</div>
+
+    <div class="section-label">Hepatitis screening (Apr 2026)</div>
+    <div class="card">
+      <div class="lab-row cols1"><span class="lab-name">Hep B surface antigen</span><span class="lab-cell"><span class="badge badge-ok">NR</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">Hep B surface antibody</span><span class="lab-cell"><span class="badge badge-warn">NR</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">Hep B core antibody</span><span class="lab-cell"><span class="badge badge-ok">NR</span></span></div>
+      <div class="lab-row cols1"><span class="lab-name">Hep C antibody</span><span class="lab-cell"><span class="badge badge-ok">NR</span></span></div>
+    </div>
+    <div class="note">NR = nonreactive. Hep B surface antibody nonreactive indicates no immunity to Hep B — vaccination series may be recommended. All other results clear.</div>
   </div>
 
   <!-- FITNESS -->
@@ -285,10 +303,11 @@
 
     <div class="section-label">Weekly training schedule</div>
     <div class="card">
-      <div class="row"><span class="row-label">Monday</span><span class="row-val">Distance run — 32–39 min</span></div>
+      <div class="row"><span class="row-label">Monday</span><span class="row-val">Distance run — 32–39 min + strength</span></div>
       <div class="row"><span class="row-label">Tuesday</span><span class="row-val">Stair machine + strength</span></div>
-      <div class="row"><span class="row-label">Wednesday</span><span class="row-val">Sprint run — 22–32 min</span></div>
+      <div class="row"><span class="row-label">Wednesday</span><span class="row-val">Sprint run — 22–32 min + strength</span></div>
       <div class="row"><span class="row-label">Thursday</span><span class="row-val">Stair machine + strength</span></div>
+      <div class="row"><span class="row-label">Friday</span><span class="row-val">Elliptical + strength</span></div>
       <div class="row"><span class="row-label">Saturday</span><span class="row-val">Pilates (some weeks)</span></div>
     </div>
 
@@ -316,6 +335,10 @@
 
     <div class="section-label">Watch items for this visit</div>
     <div class="watch-item">
+      <div class="watch-title">Lp(a) — Lipoprotein A</div>
+      <div class="watch-desc">103 nmol/L, elevated (normal &lt;75). Largely genetic. Combined with my LDL history this is worth a cardiovascular risk conversation.</div>
+    </div>
+    <div class="watch-item">
       <div class="watch-title">LDL / Total cholesterol</div>
       <div class="watch-desc">Has been elevated across multiple draws. My HDL is strong — curious what you think given the full picture.</div>
     </div>
@@ -342,35 +365,9 @@
     <p class="footer-note">For patient reference only · Not medical advice</p>
   </div>
 
-  <!-- BELOW TABS: SUGGESTED LABS + CONCERNS -->
+  <!-- BELOW TABS: CONCERNS -->
   <div class="bottom-outer">
-    <div class="bottom-header">Suggested labs</div>
-    <div class="lab-suggest-item">
-      <div class="lab-suggest-title">Repeat CBC + folate</div>
-      <div class="lab-suggest-desc">A few CBC values were elevated in Dec 2024 and folate was borderline. I started 5-MTHF since — would it make sense to recheck?</div>
-    </div>
-    <div class="lab-suggest-item">
-      <div class="lab-suggest-title">Thyroglobulin</div>
-      <div class="lab-suggest-desc">Slightly outside range in Nov 2023, not repeated since. Worth rechecking?</div>
-    </div>
-    <div class="lab-suggest-item">
-      <div class="lab-suggest-title">ApoB and/or Lp(a)</div>
-      <div class="lab-suggest-desc">Given the elevated LDL history — would these add useful context to the cholesterol picture?</div>
-    </div>
-    <div class="lab-suggest-item">
-      <div class="lab-suggest-title">Hormone panel — estrogen, progesterone, testosterone</div>
-      <div class="lab-suggest-desc">Not in any prior labs. Would it be useful to have a baseline given my HRT?</div>
-    </div>
-    <div class="lab-suggest-item">
-      <div class="lab-suggest-title">DHEA-S</div>
-      <div class="lab-suggest-desc">Not previously tested — is this worth adding at this stage?</div>
-    </div>
-    <div class="lab-suggest-item">
-      <div class="lab-suggest-title">Vitamin D (annual)</div>
-      <div class="lab-suggest-desc">Confirmed good at 66 in Dec 2024. Is annual monitoring sufficient?</div>
-    </div>
-
-    <div class="bottom-header" style="margin-top:1.25rem;">Areas of concern</div>
+    <div class="bottom-header">Areas of concern</div>
     <div class="concern-item">
       <div class="concern-title">Forehead bump — possible Dilated Pore of Winer</div>
       <div class="concern-desc">Present about a year. Would like evaluation and a dermatology referral.</div>
@@ -379,7 +376,6 @@
       <div class="concern-title">Knees</div>
       <div class="concern-desc">Ongoing concern — active training schedule with significant stair machine and running volume.</div>
     </div>
-
     <p class="footer-note">For patient reference only · Not medical advice</p>
   </div>
 </div>
